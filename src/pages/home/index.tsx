@@ -2,12 +2,25 @@ import { Box, Group, Image, Stack, Text } from "@mantine/core";
 import { HeroButton } from "../../components/HeroButton";
 import { TextBG } from "../../components/TextBG";
 import { ThickButton } from "../../components/ThickButton";
+import { CardsAnimation } from "../../components/cardsAnimation";
 
 export const Home = () => {
   return (
-    <Stack align="top">
-      <Stack m={48}>
-        <Group position="apart">
+    <Box>
+      <Box sx={{position:"absolute",height:"100vh", width: "100vw", overflow: "hidden"}}>
+        <Box
+          sx={{
+            position: "absolute",
+            transform:
+              "translate(calc(100vw - 720px), 400px) scale(1.4) rotate(-10deg)",
+          }}
+        >
+          <CardsAnimation />
+        </Box>
+        <TextBG />
+      </Box>
+      <Stack>
+        <Group position="apart" m={48}>
           <Image src="/assets/Boringo.svg" height={64} width={64} />
           <Group>
             <ThickButton size="lg" color="bellow">
@@ -95,7 +108,6 @@ export const Home = () => {
           <HeroButton>Play Now</HeroButton>
         </Stack>
       </Stack>
-      <TextBG />
-    </Stack>
+    </Box>
   );
 };

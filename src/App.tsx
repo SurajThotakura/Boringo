@@ -15,8 +15,8 @@ function App() {
             ...theme.fn.fontStyles(),
             backgroundColor: theme.colors.beige[1],
             color: theme.colors.beige[9],
-          }
-        })
+          },
+        }),
       }}
       withGlobalStyles
       withNormalizeCSS
