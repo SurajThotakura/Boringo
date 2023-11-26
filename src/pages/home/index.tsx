@@ -1,9 +1,8 @@
 import { Box, Group, Image, Stack, Text } from "@mantine/core";
-import { HeroButton } from "../../components/HeroButton";
-import { TextBG } from "../../components/TextBG";
-import { ThickButton } from "../../components/ThickButton";
-import { CardsAnimation } from "../../components/cardsAnimation";
+import { TextBG } from "../../components/textBG";
 import { Link } from "react-router-dom";
+import { HeroButton, ThickButton } from "../../components/customButtons";
+import { CardsAnimation } from "../../components/cardsAnimation";
 
 export const Home = () => {
   return (
