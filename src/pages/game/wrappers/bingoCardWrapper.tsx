@@ -4,11 +4,13 @@ import { useEffect, useRef } from "react";
 interface IBingoCardWrapperProps {
   scaleFactor: number;
   cardColor: string;
+  columns: number;
 }
 interface IBingoTileProps {
   tileContent: string;
   isStamped: boolean;
   index: number;
+  columns: number;
 }
 
 interface IResizeTextProps {
@@ -29,6 +31,13 @@ const BingoTilesArray = [
   "",
   "",
   "",
+  "Not my type",
+  "Ok!",
+  "",
+  "",
+  "",
+  "",
+  "",
 ];
 
 const useStyles = createStyles((theme) => ({
@@ -37,7 +46,7 @@ const useStyles = createStyles((theme) => ({
     height: "100%",
     padding: 12,
     display: "flex",
-    alignItems:"center",
+    alignItems: "center",
     justifyContent: "center",
   },
   content: {
@@ -53,11 +62,12 @@ const BingoTile = ({
   tileContent,
   isStamped = false,
   index,
+  columns,
 }: IBingoTileProps) => {
   const { classes } = useStyles();
-
+  const totalCells = columns*columns
   const borderRadius: string =
-    index === 6 ? "0 0 0 16px" : index === 8 ? "0 0 16px 0" : "";
+    index === totalCells-columns ? "0 0 0 16px" : index === totalCells-1 ? "0 0 16px 0" : "";
 
   const isOverflown = (element: HTMLElement | null) => {
     if (!element) return false;
@@ -106,6 +116,7 @@ const BingoTile = ({
 export const BingoCardWrapper = ({
   scaleFactor = 1,
   cardColor = "bink",
+  columns = 3,
 }: IBingoCardWrapperProps) => {
   return (
     <Stack
@@ -115,8 +126,8 @@ export const BingoCardWrapper = ({
         backgroundColor: theme.colors[cardColor][0],
         boxShadow: `inset 0 0 0 6px ${theme.colors.beige[9]}`,
         borderRadius: 16,
-        height: 740,
-        width: 600,
+        height: 200 * (columns+1) - 60,
+        width: 200 * columns,
       })}
     >
       <Center
@@ -132,13 +143,14 @@ export const BingoCardWrapper = ({
           Sprint Planning
         </Text>
       </Center>
-      <SimpleGrid cols={3} verticalSpacing={0} spacing={0}>
+      <SimpleGrid cols={columns} verticalSpacing={0} spacing={0}>
         {BingoTilesArray.map((tile, index) => (
           <BingoTile
             key={index}
             tileContent={tile}
             isStamped={false}
             index={index}
+            columns={columns}
           />
         ))}
       </SimpleGrid>
