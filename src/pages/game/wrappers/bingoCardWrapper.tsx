@@ -1,10 +1,17 @@
-import { Center, SimpleGrid, Stack, Text, createStyles } from "@mantine/core";
-import { useEffect, useRef } from "react";
+import {
+  Center,
+  Flex,
+  SimpleGrid,
+  Stack,
+  Text,
+  createStyles,
+} from "@mantine/core";
+import { useEffect, useRef, useState } from "react";
 
 interface IBingoCardWrapperProps {
-  scaleFactor: number;
   cardColor: string;
   columns: number;
+  bingoTiles: Array<string>;
 }
 interface IBingoTileProps {
   tileContent: string;
@@ -20,25 +27,6 @@ interface IResizeTextProps {
 
 const DEFAULT_TEXT_SIZE = 12;
 const MAX_TEXT_SIZE = 64;
-
-const BingoTilesArray = [
-  "Is this a fish market or what is this?",
-  "Not my type",
-  "Ok!",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "Not my type",
-  "Ok!",
-  "",
-  "",
-  "",
-  "",
-  "",
-];
 
 const useStyles = createStyles((theme) => ({
   textContainer: {
@@ -65,9 +53,13 @@ const BingoTile = ({
   columns,
 }: IBingoTileProps) => {
   const { classes } = useStyles();
-  const totalCells = columns*columns
+  const totalCells = columns * columns;
   const borderRadius: string =
-    index === totalCells-columns ? "0 0 0 16px" : index === totalCells-1 ? "0 0 16px 0" : "";
+    index === totalCells - columns
+      ? "0 0 0 16px"
+      : index === totalCells - 1
+      ? "0 0 16px 0"
+      : "";
 
   const isOverflown = (element: HTMLElement | null) => {
     if (!element) return false;
@@ -114,10 +106,23 @@ const BingoTile = ({
 };
 
 export const BingoCardWrapper = ({
-  scaleFactor = 1,
   cardColor = "bink",
   columns = 3,
+  bingoTiles,
 }: IBingoCardWrapperProps) => {
+  const cardWidth = 200 * columns;
+  const cardHeight = 200 * (columns + 1) - 60;
+  const [scaleFactor, setScaleFactor] = useState(1);
+  useEffect(() => {
+    const windoWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    const widthScale =
+      windoWidth > cardWidth ? 1 : windoWidth / (cardWidth + 80);
+    const heightScale =
+      windowHeight > cardHeight ? 1 : windowHeight / (cardHeight + 80);
+    console.log(heightScale, widthScale);
+    setScaleFactor(widthScale > heightScale ? heightScale : widthScale);
+  }, []);
   return (
     <Stack
       spacing={0}
@@ -126,8 +131,8 @@ export const BingoCardWrapper = ({
         backgroundColor: theme.colors[cardColor][0],
         boxShadow: `inset 0 0 0 6px ${theme.colors.beige[9]}`,
         borderRadius: 16,
-        height: 200 * (columns+1) - 60,
-        width: 200 * columns,
+        height: cardHeight,
+        width: cardWidth,
       })}
     >
       <Center
@@ -143,8 +148,10 @@ export const BingoCardWrapper = ({
           Sprint Planning
         </Text>
       </Center>
-      <SimpleGrid cols={columns} verticalSpacing={0} spacing={0}>
-        {BingoTilesArray.map((tile, index) => (
+      <Flex
+        sx={{ width: 200 * columns, height: 200 * columns, flexWrap: "wrap" }}
+      >
+        {bingoTiles.map((tile, index) => (
           <BingoTile
             key={index}
             tileContent={tile}
@@ -153,7 +160,7 @@ export const BingoCardWrapper = ({
             columns={columns}
           />
         ))}
-      </SimpleGrid>
+      </Flex>
     </Stack>
   );
 };
