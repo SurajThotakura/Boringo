@@ -1,7 +1,8 @@
 import { Center } from "@mantine/core"
+import { BingoCardWrapper } from "./wrappers/bingoCardWrapper"
 
 export const Game = () => {
     return <Center h="100vh" w="100vw">
-        <h1>Game</h1>
+        <BingoCardWrapper scaleFactor={1} cardColor="bilac"/>
     </Center>
 }
