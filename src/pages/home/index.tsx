@@ -67,7 +67,7 @@ export const Home = () => {
           </Group>
           <Group spacing={32}>
             <Text fz={48} fw={300} fs="italic">
-              Mage a
+              Make a
             </Text>
             <Box h={72} w={140}>
               <Box
