@@ -3,11 +3,19 @@ import { HeroButton } from "../../components/HeroButton";
 import { TextBG } from "../../components/TextBG";
 import { ThickButton } from "../../components/ThickButton";
 import { CardsAnimation } from "../../components/cardsAnimation";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   return (
     <Box>
-      <Box sx={{position:"absolute",height:"100vh", width: "100vw", overflow: "hidden"}}>
+      <Box
+        sx={{
+          position: "absolute",
+          height: "100vh",
+          width: "100vw",
+          overflow: "hidden",
+        }}
+      >
         <Box
           sx={{
             position: "absolute",
@@ -105,7 +113,9 @@ export const Home = () => {
               Boringo!
             </Text>
           </Box>
-          <HeroButton>Play Now</HeroButton>
+          <Link to="/game">
+            <HeroButton>Play Now</HeroButton>
+          </Link>
         </Stack>
       </Stack>
     </Box>

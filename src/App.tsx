@@ -1,8 +1,20 @@
 import { MantineProvider } from "@mantine/core";
 import { Home } from "./pages/home";
 import { colors } from "./constants/colors";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Game } from "./pages/game";
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/game",
+      element: <Game />,
+    },
+  ]);
   return (
     <MantineProvider
       theme={{
@@ -21,7 +33,7 @@ function App() {
       withGlobalStyles
       withNormalizeCSS
     >
-      <Home />
+      <RouterProvider router={router} />
     </MantineProvider>
   );
 }
