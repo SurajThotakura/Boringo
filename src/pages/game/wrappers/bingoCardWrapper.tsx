@@ -26,7 +26,7 @@ interface IResizeTextProps {
 }
 
 const DEFAULT_TEXT_SIZE = 12;
-const MAX_TEXT_SIZE = 64;
+const MAX_TEXT_SIZE = 56;
 
 const useStyles = createStyles((theme) => ({
   textContainer: {
@@ -63,7 +63,7 @@ const BingoTile = ({
 
   const isOverflown = (element: HTMLElement | null) => {
     if (!element) return false;
-    return element.scrollHeight > element.clientHeight;
+    return element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight ;
   };
 
   const resizeText = ({ element, parent }: IResizeTextProps) => {
@@ -75,7 +75,7 @@ const BingoTile = ({
       overflow = isOverflown(parent);
       if (!overflow) textSize++;
     }
-    element.style.fontSize = `${textSize - 4}px`;
+    element.style.fontSize = `${textSize - 8}px`;
   };
 
   const containerRef = useRef(null);

@@ -2,22 +2,15 @@ import { Center } from "@mantine/core"
 import { BingoCardWrapper } from "./wrappers/bingoCardWrapper"
 
 const BingoTilesArray = [
-    "Is this a fish market or what is this?",
-    "Not my type",
-    "Ok!",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "Not my type",
-    "Ok!",
-    "",
-    "",
-    "",
-    "",
-    "",
+    "Spill Over",
+    "Let’s park it",
+    "Let me share my screen",
+    "Take this offline",
+    "Free!",
+    "Blocker!",
+    "I’m happy to help",
+    "Can someone else take this up?",
+    "I don’t have the Bandwidth",
   ];
 
 export const Game = () => {
