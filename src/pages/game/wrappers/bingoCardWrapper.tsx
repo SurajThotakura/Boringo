@@ -1,128 +1,39 @@
 import {
   Center,
   Flex,
-  SimpleGrid,
   Stack,
   Text,
-  createStyles,
 } from "@mantine/core";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { BingoTile } from "./bingoTileWrapper";
 
 interface IBingoCardWrapperProps {
   cardColor: string;
   columns: number;
   bingoTiles: Array<string>;
+  bingoTitle: string;
 }
-interface IBingoTileProps {
-  tileContent: string;
-  isStamped: boolean;
-  index: number;
-  columns: number;
-}
-
-interface IResizeTextProps {
-  element: HTMLElement | null;
-  parent: HTMLElement | null;
-}
-
-const DEFAULT_TEXT_SIZE = 12;
-const MAX_TEXT_SIZE = 56;
-
-const useStyles = createStyles((theme) => ({
-  textContainer: {
-    width: "100%",
-    height: "100%",
-    padding: 12,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  content: {
-    fontSize: 12,
-    fontStyle: "italic",
-    textAlign: "center",
-    color: theme.colors.beige[9],
-    display: "block",
-  },
-}));
-
-const BingoTile = ({
-  tileContent,
-  isStamped = false,
-  index,
-  columns,
-}: IBingoTileProps) => {
-  const { classes } = useStyles();
-  const totalCells = columns * columns;
-  const borderRadius: string =
-    index === totalCells - columns
-      ? "0 0 0 16px"
-      : index === totalCells - 1
-      ? "0 0 16px 0"
-      : "";
-
-  const isOverflown = (element: HTMLElement | null) => {
-    if (!element) return false;
-    return element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight ;
-  };
-
-  const resizeText = ({ element, parent }: IResizeTextProps) => {
-    if (element === null || parent === null) return DEFAULT_TEXT_SIZE;
-    let textSize = DEFAULT_TEXT_SIZE;
-    let overflow = false;
-    while (!overflow && textSize < MAX_TEXT_SIZE) {
-      element.style.fontSize = `${textSize}px`;
-      overflow = isOverflown(parent);
-      if (!overflow) textSize++;
-    }
-    element.style.fontSize = `${textSize - 8}px`;
-  };
-
-  const containerRef = useRef(null);
-  const textRef = useRef(null);
-
-  useEffect(() => {
-    resizeText({ element: textRef.current, parent: containerRef.current });
-  }, [textRef, containerRef]);
-
-  return (
-    <Center
-      sx={(theme) => ({
-        cursor: "pointer",
-        width: 200,
-        height: 200,
-        boxShadow: `inset 0 0 0 3px ${theme.colors.beige[9]}`,
-        borderRadius: borderRadius,
-        "&:hover > div": { transform: "scale(1.05)" },
-      })}
-    >
-      <div className={classes.textContainer} ref={containerRef}>
-        <span className={classes.content} ref={textRef}>
-          {tileContent}
-        </span>
-      </div>
-    </Center>
-  );
-};
 
 export const BingoCardWrapper = ({
   cardColor = "bink",
   columns = 3,
   bingoTiles,
+  bingoTitle,
 }: IBingoCardWrapperProps) => {
   const cardWidth = 200 * columns;
   const cardHeight = 200 * (columns + 1) - 60;
   const [scaleFactor, setScaleFactor] = useState(1);
+
   useEffect(() => {
-    const windoWidth = window.innerWidth;
+    const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
     const widthScale =
-      windoWidth > cardWidth ? 1 : windoWidth / (cardWidth + 80);
+      windowWidth > cardWidth ? 1 : windowWidth / (cardWidth + 80);
     const heightScale =
       windowHeight > cardHeight ? 1 : windowHeight / (cardHeight + 80);
-    console.log(heightScale, widthScale);
     setScaleFactor(widthScale > heightScale ? heightScale : widthScale);
   }, []);
+
   return (
     <Stack
       spacing={0}
@@ -145,7 +56,7 @@ export const BingoCardWrapper = ({
         })}
       >
         <Text fw={700} fs="italic" fz={48}>
-          Sprint Planning
+          {bingoTitle}
         </Text>
       </Center>
       <Flex
@@ -155,7 +66,6 @@ export const BingoCardWrapper = ({
           <BingoTile
             key={index}
             tileContent={tile}
-            isStamped={false}
             index={index}
             columns={columns}
           />

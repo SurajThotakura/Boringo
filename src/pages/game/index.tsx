@@ -6,7 +6,7 @@ const BingoTilesArray = [
     "Let’s park it",
     "Let me share my screen",
     "Take this offline",
-    "Free!",
+    "Stretch ourselves",
     "Blocker!",
     "I’m happy to help",
     "Can someone else take this up?",
@@ -15,6 +15,6 @@ const BingoTilesArray = [
 
 export const Game = () => {
     return <Center h="100vh" w="100vw">
-        <BingoCardWrapper cardColor="bilac" columns={Math.sqrt(BingoTilesArray.length)} bingoTiles={BingoTilesArray}/>
+        <BingoCardWrapper cardColor="bilac" columns={Math.sqrt(BingoTilesArray.length)} bingoTiles={BingoTilesArray} bingoTitle="Sprint Planning"/>
     </Center>
 }
