@@ -75,8 +75,8 @@ export const BingoTile = ({ tileContent, index, columns }: IBingoTileProps) => {
 
   const handleClick = () => {
     setStampOffset({
-      x: Math.floor(Math.random() * 56),
-      y: Math.floor(Math.random() * 56),
+      x: Math.floor(Math.random() * 48),
+      y: Math.floor(Math.random() * 48),
     });
     setIsStamped((prevState) => !prevState);
   };
@@ -90,7 +90,7 @@ export const BingoTile = ({ tileContent, index, columns }: IBingoTileProps) => {
             sx={{
               position: "absolute",
               mixBlendMode: "multiply",
-              transform: `translate(${stampOffset.x}px, ${stampOffset.y}px)`,
+              transform: `translate(${stampOffset.x}px, ${stampOffset.y}px) rotate(${stampOffset.x}deg)`,
             }}
           />
         )}
