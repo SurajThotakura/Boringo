@@ -2,28 +2,10 @@ import { Button, Center, Group, Stack, Text } from "@mantine/core";
 import { BingoCardWrapper } from "./wrappers/bingoCardWrapper";
 import { useState } from "react";
 import { useAtom } from "jotai";
-import { bingoDimensionAtom, bingoStringAtom, bingoWinAtom } from "../../state/jotai";
-
-const BingoTilesArray = [
-  "Spill Over",
-  "Let’s park it",
-  "Let me share my screen",
-  "Take this offline",
-  "Stretch ourselves",
-  "Blocker!",
-  "I’m happy to help",
-  "Can someone else take this up?",
-  "I don’t have the Bandwidth",
-];
+import { BingoTilesArray, bingoWinAtom } from "../../state/jotai";
 
 export const Game = () => {
   const [color, setColor] = useState("bilac");
-
-  const [bingoDimension, setBingoDimension] = useAtom(bingoDimensionAtom);
-  setBingoDimension(Math.sqrt(BingoTilesArray.length));
-
-  const [_, setBingoString] = useAtom(bingoStringAtom);
-  setBingoString("0".repeat(bingoDimension));
 
   const [bingo] = useAtom(bingoWinAtom);
 

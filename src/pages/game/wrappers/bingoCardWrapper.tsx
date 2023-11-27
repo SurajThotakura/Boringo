@@ -6,8 +6,7 @@ import {
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { BingoTile } from "./bingoTileWrapper";
-import { useAtom } from "jotai";
-import { bingoDimensionAtom } from "../../../state/jotai";
+import { bingoDimension } from "../../../state/jotai";
 
 interface IBingoCardWrapperProps {
   cardColor: string;
@@ -20,7 +19,7 @@ export const BingoCardWrapper = ({
   bingoTiles,
   bingoTitle,
 }: IBingoCardWrapperProps) => {
-  const [columns,_]= useAtom(bingoDimensionAtom)
+  const columns = bingoDimension
   const cardWidth = 200 * columns;
   const cardHeight = 200 * (columns + 1) - 60;
   const [scaleFactor, setScaleFactor] = useState(1);

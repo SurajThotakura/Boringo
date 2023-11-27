@@ -1,6 +1,6 @@
 import { Box, Center, Image, createStyles } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import { bingoDimensionAtom, bingoStringAtom, bingoWinAtom } from "../../../state/jotai";
+import { bingoDimension, bingoStringAtom, bingoWinAtom } from "../../../state/jotai";
 import { useAtom } from "jotai";
 import { validateBingoCard } from "../../../utils/validateBingo";
 
@@ -77,7 +77,6 @@ export const BingoTile = ({ tileContent, index, columns }: IBingoTileProps) => {
   const [stampOffset, setStampOffset] = useState({ x: 0, y: 0 });
 
   const [bingoString, setBingoString] = useAtom(bingoStringAtom);
-  const [bingoDimension] = useAtom(bingoDimensionAtom);
   const [_,setBingoWin] = useAtom(bingoWinAtom)
 
   const handleClick = () => {
@@ -93,6 +92,7 @@ export const BingoTile = ({ tileContent, index, columns }: IBingoTileProps) => {
     if (validateBingoCard(bingoString, bingoDimension)) {
       setBingoWin(true);
     }
+    console.log(bingoString)
   }, [bingoString, bingoDimension]);
   return (
     <Box onClick={handleClick}>
