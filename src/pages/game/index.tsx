@@ -1,4 +1,4 @@
-import { Button, Center, Group, Stack, Text } from "@mantine/core";
+import { Button, Group, Stack, Text } from "@mantine/core";
 import { BingoCardWrapper } from "./wrappers/bingoCardWrapper";
 import { useState } from "react";
 import { useAtom } from "jotai";
@@ -10,8 +10,7 @@ export const Game = () => {
   const [bingo] = useAtom(bingoWinAtom);
 
   return (
-    <Center h="100vh" w="100vw">
-      <Stack align="center">
+      <Stack align="center" mt={32}>
         <Group>
           <Button color="bink" onClick={() => setColor("bink")}>
             You
@@ -32,11 +31,10 @@ export const Game = () => {
           bingoTitle="Sprint Planning"
         />
         {bingo && (
-          <Text fz={32} fw={700} fs="italic">
+          <Text fz={64} fw={700} fs="italic">
             BINGO!
           </Text>
         )}
       </Stack>
-    </Center>
   );
 };

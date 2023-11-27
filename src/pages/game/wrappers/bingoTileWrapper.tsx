@@ -84,13 +84,16 @@ export const BingoTile = ({ tileContent, index, columns }: IBingoTileProps) => {
       x: Math.floor(Math.random() * 48),
       y: Math.floor(Math.random() * 48),
     });
+    const bingoStringChar = isStamped?"0":"1"
     setIsStamped((prevState) => !prevState);
-    setBingoString(bingoString.substring(0, index) + "1" + bingoString.substring(index + 1))
+    setBingoString(bingoString.substring(0, index) + bingoStringChar + bingoString.substring(index + 1))
   };
 
   useEffect(() => {
     if (validateBingoCard(bingoString, bingoDimension)) {
       setBingoWin(true);
+    }else{
+      setBingoWin(false);
     }
     console.log(bingoString)
   }, [bingoString, bingoDimension]);
