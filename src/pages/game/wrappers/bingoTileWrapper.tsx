@@ -95,7 +95,6 @@ export const BingoTile = ({ tileContent, index, columns }: IBingoTileProps) => {
     }else{
       setBingoWin(false);
     }
-    console.log(bingoString)
   }, [bingoString, bingoDimension]);
   return (
     <Box onClick={handleClick}>
