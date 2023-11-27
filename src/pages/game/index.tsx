@@ -1,6 +1,8 @@
-import { Button, Center, Group, Stack } from "@mantine/core";
+import { Button, Center, Group, Stack, Text } from "@mantine/core";
 import { BingoCardWrapper } from "./wrappers/bingoCardWrapper";
 import { useState } from "react";
+import { useAtom } from "jotai";
+import { bingoDimensionAtom, bingoStringAtom, bingoWinAtom } from "../../state/jotai";
 
 const BingoTilesArray = [
   "Spill Over",
@@ -16,6 +18,15 @@ const BingoTilesArray = [
 
 export const Game = () => {
   const [color, setColor] = useState("bilac");
+
+  const [bingoDimension, setBingoDimension] = useAtom(bingoDimensionAtom);
+  setBingoDimension(Math.sqrt(BingoTilesArray.length));
+
+  const [_, setBingoString] = useAtom(bingoStringAtom);
+  setBingoString("0".repeat(bingoDimension));
+
+  const [bingo] = useAtom(bingoWinAtom);
+
   return (
     <Center h="100vh" w="100vw">
       <Stack align="center">
@@ -35,10 +46,14 @@ export const Game = () => {
         </Group>
         <BingoCardWrapper
           cardColor={color}
-          columns={Math.sqrt(BingoTilesArray.length)}
           bingoTiles={BingoTilesArray}
           bingoTitle="Sprint Planning"
         />
+        {bingo && (
+          <Text fz={32} fw={700} fs="italic">
+            BINGO!
+          </Text>
+        )}
       </Stack>
     </Center>
   );
