@@ -1,6 +1,8 @@
-export function validateBingoCard(cardString: string, n: number) {
-  const validString = "1".repeat(n);
+import { bingoDimension } from "../state/jotai";
 
+const validString = "1".repeat(bingoDimension);
+
+export function validateBingoCard(cardString: string, n: number) {
   // check rows, columns and diagonals
   const rowsArray = []
   const columnsArray = []

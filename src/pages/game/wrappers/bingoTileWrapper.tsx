@@ -1,6 +1,10 @@
 import { Box, Center, Image, createStyles } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import { bingoDimension, bingoStringAtom, bingoWinAtom } from "../../../state/jotai";
+import {
+  bingoDimension,
+  bingoStringAtom,
+  bingoWinAtom,
+} from "../../../state/jotai";
 import { useAtom } from "jotai";
 import { validateBingoCard } from "../../../utils/validateBingo";
 
@@ -77,24 +81,24 @@ export const BingoTile = ({ tileContent, index, columns }: IBingoTileProps) => {
   const [stampOffset, setStampOffset] = useState({ x: 0, y: 0 });
 
   const [bingoString, setBingoString] = useAtom(bingoStringAtom);
-  const [_,setBingoWin] = useAtom(bingoWinAtom)
+  const [_, setBingoWin] = useAtom(bingoWinAtom);
 
   const handleClick = () => {
     setStampOffset({
       x: Math.floor(Math.random() * 48),
       y: Math.floor(Math.random() * 48),
     });
-    const bingoStringChar = isStamped?"0":"1"
+    const bingoStringChar = isStamped ? "0" : "1";
     setIsStamped((prevState) => !prevState);
-    setBingoString(bingoString.substring(0, index) + bingoStringChar + bingoString.substring(index + 1))
+    setBingoString(
+      bingoString.substring(0, index) +
+        bingoStringChar +
+        bingoString.substring(index + 1)
+    );
   };
 
   useEffect(() => {
-    if (validateBingoCard(bingoString, bingoDimension)) {
-      setBingoWin(true);
-    }else{
-      setBingoWin(false);
-    }
+    setBingoWin(validateBingoCard(bingoString, bingoDimension));
   }, [bingoString, bingoDimension]);
   return (
     <Box onClick={handleClick}>
