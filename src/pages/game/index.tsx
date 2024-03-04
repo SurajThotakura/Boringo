@@ -3,6 +3,7 @@ import { BingoCardWrapper } from "./wrappers/bingoCardWrapper";
 import { useState } from "react";
 import { useAtom } from "jotai";
 import { BingoTilesArray, bingoWinAtom } from "../../state/jotai";
+import { HeroButton, ThickButton } from "../../components/customButtons";
 
 export const Game = () => {
   const [color, setColor] = useState("bilac");
@@ -10,31 +11,22 @@ export const Game = () => {
   const [bingo] = useAtom(bingoWinAtom);
 
   return (
-      <Stack align="center" mt={32}>
-        <Group>
-          <Button color="bink" onClick={() => setColor("bink")}>
-            You
-          </Button>
-          <Button color="bilac" onClick={() => setColor("bilac")}>
-            Can
-          </Button>
-          <Button color="bellow" c="beige.9" onClick={() => setColor("bellow")}>
-            Change
-          </Button>
-          <Button color="baqua" onClick={() => setColor("baqua")}>
-            Colour
-          </Button>
-        </Group>
+    <Group w="100vw" position="apart">
+      <Stack align="center" w="calc(100vw - 420px)" mt={32}>
+        <HeroButton disabled={!bingo}>
+          Bingo
+        </HeroButton>
         <BingoCardWrapper
           cardColor={color}
           bingoTiles={BingoTilesArray}
           bingoTitle="Sprint Planning"
         />
-        {bingo && (
-          <Text fz={64} fw={700} fs="italic">
-            BINGO!
-          </Text>
-        )}
       </Stack>
+      <Stack
+        w={400}
+        h="100vh"
+        sx={(theme) => ({ backgroundColor: theme.colors.baqua[1] })}
+      ></Stack>
+    </Group>
   );
 };
